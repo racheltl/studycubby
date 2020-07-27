@@ -145,6 +145,13 @@ input {
   background-color: #bbb;
 }
 
+#level {
+	margin-top: 5px;
+	margin-left: 5px;
+	font-family: 'Varta', sans-serif;
+	font-size: 24px;
+}
+
 #container {
 	width: 100%;
 }
@@ -178,6 +185,7 @@ input {
 }
 
 
+
 #cage {
 	background-color:#fabf87;
 	border-style: solid;
@@ -186,6 +194,26 @@ input {
 	border-color: #fabf87;
 	height: 450px;
 	vertical-align: top;
+}
+
+#cage img {
+	width: 425px; 
+	margin: auto;
+	margin-top: 0;
+	display: block;
+	position: relative;
+}
+
+
+#hat {
+	position: absolute;
+	bottom: 425px;
+}
+
+#shirt {
+	position: absolute;
+	bottom: 850px;
+	z-index: 3;
 }
 </style>
 </head>
@@ -196,18 +224,12 @@ input {
 	<tr>
 		<td id="toDoList">
 			<div id="myDIV" class="header">
-				<h2 style="margin:5px">My To Do List</h2>
-				<input type="text" id="myInput" placeholder="Title...">
+				<h2 style="margin:5px">Study Cubby</h2>
+				<input type="text" id="myInput" placeholder="What do you want to do?">
 				<span onclick="newElement()" class="addBtn">Add</span>
 			</div>
 
 			<ul id="myUL">
-				<li>Hit the gym</li>
-				<li class="checked">Pay bills</li>
-				<li>Meet George</li>
-				<li>Buy eggs</li>
-				<li>Read a book</li>
-				<li>Organize office</li>
 			</ul>
 		</td>
 	
@@ -216,8 +238,12 @@ input {
 		<td>
 			<div id="cage">
 				<div id="myProgress">
-					<div id="myBar">0%</div>
+          <div id="myBar">0%</div>
 				</div>
+				<div id="level">Lvl: 1</div>
+				<img src="https://raw.githubusercontent.com/racheltl/studycubby/master/tiger.png" alt="tiger avatar"></img>
+				<img src="https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG" alt="hat" id="hat"></img>
+				<img src="https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG" alt="shirt" id="shirt"></img>
 			</div>
 		</td>
 		
@@ -225,38 +251,98 @@ input {
 </table>
 
 <!-- closet -->
-<table width="200" cellpadding="5">
-	<th colspan="2">
-        <h3><cl>closet</cl></h3> 
-    </th>
+<table cellpadding="5" style="background-color:#fabf87; width:100%">
 	<tr>
-		<td align="center" valign="center">
-			<img src="https://github.com/racheltl/studycubby/blob/master/boater.png?raw=true" alt="boater hat" style="width:120px;"/>
+    	<td>
+    		<th>
+        		<cl style="font-size:20px; float: center; position: fixed;">Closet</cl>
+    		</th>
+    	</td>
+    </tr>
+	<tr>
+
+		<td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/blueShirt.png?raw=true" alt="blue shirt" id="2" style="width:120px;filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'" onClick="changeBlueShirt()"/>
 			<br />
-			<cl>old nassau</cl>
-            
+			<cl>sunday best</cl>
 		</td>
 
-		<td align="center" valign="center">
-			<img src="https://github.com/racheltl/studycubby/blob/master/cowboy.png?raw=true" alt="cowboy hat" style="width:120px;"/>
+		<td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/cowboy.png?raw=true" alt="cowboy hat" id="3" style="width:120px; filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'" onClick="changeCowboy()"/>
 			<br />
 			<cl>old yeehau</cl>
+		</td>
+
+		<td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/boater.png?raw=true" alt="boater hat" id="4" style="width:120px;filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'" onClick="changeBoater()"/>
+			<br />
+			<cl>old nassau</cl>   
+		</td>
+
+		<td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/cardigan.png?raw=true" alt="cardigan" id="5" style="width:120px;filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'" onClick="changeCardigan()"/>
+			<br />
+			<cl>cardigan b</cl>
+		</td>
+        
+        <td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/beanie.png?raw=true" alt="beanie" id="6" style="width:120px;filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'" onClick="changeBeanie()"/>
+			<br />
+			<cl>beanie babeyyy</cl>
+		</td>
+        
+        <td align="center" valign="bottom">
+			<img src="https://github.com/racheltl/studycubby/blob/master/pShirt.png?raw=true" alt="orange p shirt" id="7" style="width:120px;filter:grayscale(100%)" onMouseOver="this.style.cursor='pointer'"/>
+			<br />
+			<cl>pton pride</cl>
 		</td>
 	</tr>
 </table>
 
 <script>
-// Create a "close" button and append it to each list item
-var myNodelist = document.getElementsByTagName("LI");
-var length = myNodelist.length;
-localStorage.setItem("length", length);
-var i;
-for (i = 0; i < myNodelist.length; i++) {
-  var span = document.createElement("SPAN");
-  var txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  myNodelist[i].appendChild(span);
+
+  // Add previously saved items to the list when the page is loaded.
+  window.onload = (event) => {
+    let elem = document.getElementById("level");
+	if (localStorage.getItem("level") !== "NaN" && localStorage.getItem("level") !== "null") {
+	  elem.innerHTML = "Lvl: " + localStorage.getItem("level");
+	}
+
+	if (localStorage.getItem("length") !== "NaN" || localStorage.getItem("length") !== "null") {
+    var length = parseInt(localStorage.getItem("length"), 10);
+		var i;
+		for (i = 0; i < length; i++) {
+			var inputName = "task" + String(i);
+			console.log("input name: ", inputName);
+			addOldItem(inputName);
+		}
+	}	
+};
+
+function addOldItem(inputName) {
+	var list = document.createElement("li");
+	var input = localStorage.getItem(inputName);
+	console.log("input: ", input);
+	var t = document.createTextNode(input);
+	list.appendChild(t);
+	document.getElementById("myUL").appendChild(list);
+
+	var span = document.createElement("SPAN");
+	var txt = document.createTextNode("\u00D7");
+	span.className = "close";
+	span.appendChild(txt);
+	list.appendChild(span);
+
+	var j;
+	for (j = 0; j < close.length; j++) {
+		close[j].onclick = function() {
+		var div = this.parentElement;
+		div.style.display = "none";
+		localStorage.removeItem(inputName);
+		var length = parseInt(localStorage.getItem("length"), 10) - 1;
+		localStorage.setItem("length", length);
+		}
+	}
 }
 
 // Click on a close button to hide the current list item
@@ -280,20 +366,33 @@ list.addEventListener('click', function(ev) {
 }, false);
 
 var width = 0;
-function move() {
-	var elem = document.getElementById("myBar");
-	if (width >= 100) {
-	width = 0;
-	} else {
-	width+=5;
-	elem.style.width = width + "%";
-	elem.innerHTML = width + "%";
-	}
+let level = 1;
+
+if (localStorage.getItem("level") !== "NaN" && localStorage.getItem("level") !== "null") {
+level = parseInt(localStorage.getItem("level"), 10);
 }
 
-// Add stored list items to the to-do list.
-var list = document.createElement("list");
-var input = 
+function move() {
+	var elem = document.getElementById("myBar");
+	if (width > 80) {
+	width = 0;
+	level = level + 1;
+	levelUp();
+	unlock();
+	} else {
+	width+=20;
+	}
+	elem.style.width = width + "%";
+	elem.innerHTML = width + "%";
+}
+
+function levelUp() {
+	let elem = document.getElementById("level");
+  elem.innerHTML = "Lvl: " + level;
+  localStorage.setItem("level", String(level));
+}
+
+
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
@@ -302,12 +401,18 @@ function newElement() {
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
 
-  // Store the list item.
-    if (typeof(Storage) !== "undefined") {
-    localStorage.setItem("task", inputValue);
-  } else {
-    alert("Sorry, no storage support!");
+  // Store the item in local storage.
+  if (localStorage.getItem("length") == "NaN") {
+    localStorage.setItem("length", "0");
   }
+ 
+  // Set a key for the new task and store.
+  var taskName = "task" + localStorage.getItem("length");
+  localStorage.setItem(taskName, inputValue);
+
+  var listLength = parseInt(localStorage.getItem("length"), 10) + 1;
+  localStorage.setItem("length", listLength);
+
   if (inputValue === '') {
     alert("You must write something!");
   } else {
@@ -324,11 +429,75 @@ function newElement() {
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
       var div = this.parentElement;
-      div.style.display = "none";
+	  div.style.display = "none";
+	  localStorage.removeItem("taskName");
+	  var length = parseInt(localStorage.getItem("length"), 10) - 1;
+	  localStorage.setItem("length", length);
     }
   }
 }
 
+// unlock clothing item
+function unlock() {
+		document.getElementById(level.toString()).style = "width:120px;";
+}
+
+// put blue shirt on tiger
+function changeBlueShirt() {
+  if (document.getElementById("shirt").src != "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBlueShirt.PNG" && level >= 2)
+  {
+  	document.getElementById("shirt").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBlueShirt.PNG";
+  }
+  else if (level >= 2)
+  {
+  	document.getElementById("shirt").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG";
+  }
+}
+
+// function to put a cowboy hat on the tiger
+function changeCowboy() {
+	if (document.getElementById("hat").src != "https://raw.githubusercontent.com/racheltl/studycubby/master/wornCowboy.PNG" && level >= 3)
+    {
+    	document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/wornCowboy.PNG";
+	}
+    else if (level >= 3)
+    {
+  	    document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG";
+    }
+}
+
+function changeBoater() {
+	if (document.getElementById("hat").src != "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBoater.PNG" && level >= 4)
+  {
+  	document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBoater.PNG";
+  }
+  else if (level >= 4)
+  {
+  	document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG";
+  }
+}
+
+function changeCardigan() {
+	if (document.getElementById("shirt").src != "https://raw.githubusercontent.com/racheltl/studycubby/master/wornCardigan.PNG" && level >= 5)
+  {
+  	document.getElementById("shirt").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/wornCardigan.PNG";
+  }
+  else if (level >= 5)
+  {
+  	document.getElementById("shirt").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG";
+  }
+}
+
+function changeBeanie() {
+	if (document.getElementById("hat").src != "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBeanie.PNG" && level >= 6)
+  {
+  	document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/wornBeanie.PNG";
+  }
+  else if (level >= 6)
+  {
+  	document.getElementById("hat").src = "https://raw.githubusercontent.com/racheltl/studycubby/master/transparentHat.PNG";
+  }
+}
 
 </script>
 
